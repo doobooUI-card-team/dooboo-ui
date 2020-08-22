@@ -21,6 +21,12 @@ const StlyedImage = styled.Image`
   height: 100px;
 `;
 
+const Divider = styled.View`
+  margin: 5px 0px;
+  height: 0.7px;
+  background-color: lightgray;
+`;
+
 interface Props {
   testID?: string;
   containerStyle?: ViewStyle;
@@ -28,15 +34,26 @@ interface Props {
   image?: ImageSourcePropType;
   imageStyle?: ImageStyle;
   contentsStyle?: ViewStyle;
+  divider?: boolean;
+  dividerStyle?: ViewStyle;
 }
 
 const Card: FC<Props> = (props) => {
-  const { containerStyle, children, image, imageStyle, contentsStyle } = props;
+  const {
+    containerStyle,
+    children,
+    image,
+    imageStyle,
+    contentsStyle,
+    divider,
+    dividerStyle,
+  } = props;
   return (
     <Container style={[containerStyle]}>
       {image && <StlyedImage source={image} style={[imageStyle]} />}
       {children && (
         <ContentsContainer style={[contentsStyle]}>
+          {divider && <Divider style={[dividerStyle]} />}
           {children}
         </ContentsContainer>
       )}
