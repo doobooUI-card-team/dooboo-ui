@@ -58,7 +58,6 @@ const SubTitleText = styled.Text`
   background-color: transparent;
   color: #e4e4e4;
   height: 20px;
-
 `;
 
 interface Props {
@@ -68,6 +67,7 @@ interface Props {
   image?: ImageSourcePropType;
   imageStyle?: ImageStyle;
   contentsStyle?: ViewStyle;
+
   loading?: boolean;
 
   titleContainerStyle?: ViewStyle;
@@ -119,6 +119,7 @@ const Card: FC<Props> = (props) => {
 
       {children && (
         <ContentsContainer style={[contentsStyle]}>
+          {title && divider && <Divider style={[dividerStyle]} />}
           {children}
         </ContentsContainer>
       )}
