@@ -1,5 +1,13 @@
 import React, { FC, ReactNode, ReactNodeArray } from 'react';
-import { ViewStyle, ImageSourcePropType, ImageStyle } from 'react-native';
+import {
+  ActivityIndicator,
+  ImageSourcePropType,
+  ImageStyle,
+  TextStyle,
+  ViewProps,
+  ViewStyle,
+
+} from 'react-native';
 
 import styled from 'styled-components/native';
 
@@ -21,10 +29,35 @@ const StlyedImage = styled.Image`
   height: 100px;
 `;
 
-const Divider = styled.View`
-  margin: 5px 0px;
-  height: 0.7px;
-  background-color: lightgray;
+const LoadingContainer = styled(Container)`
+  padding: 30px;
+  align-items: center;
+  justify-content: center;
+`;
+
+const TitleContainer = styled.View<TitleContainerProps>`
+  justify-content: ${(props) => (props.titleTextVertical ? 'flex-start' : 'center')};
+  padding: 5px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  height: auto;
+  background-color: transparent;
+`;
+
+const TitleText = styled.Text`
+  font-size: 13px;
+  background-color: transparent;
+  color: #000000;
+`;
+
+const SubTitleText = styled.Text`
+  font-size: 10px;
+  background-color: transparent;
+  color: #e4e4e4;
+  height: 20px;
 `;
 
 interface Props {
@@ -34,9 +67,18 @@ interface Props {
   image?: ImageSourcePropType;
   imageStyle?: ImageStyle;
   contentsStyle?: ViewStyle;
-  divider?: boolean;
-  dividerStyle?: ViewStyle;
+
+  loading?: boolean;
+
+  titleContainerStyle?: ViewStyle;
   title?: string;
+  titleStyle?: TextStyle;
+  subTitle?: string;
+  subTitleStyle?: TextStyle;
+}
+
+interface TitleContainerProps extends ViewProps {
+  titleTextVertical?: boolean;
 }
 
 const Card: FC<Props> = (props) => {
@@ -46,13 +88,35 @@ const Card: FC<Props> = (props) => {
     image,
     imageStyle,
     contentsStyle,
-    divider,
-    dividerStyle,
+    loading,
+    titleContainerStyle,
     title,
+    titleStyle,
+    subTitle,
+    subTitleStyle,
   } = props;
+  const titleVertical = subTitle !== undefined && subTitle.length > 0;
+  const renderTitle = (title?.length > 0) || (subTitle?.length > 0);
+
+  if (loading) {
+    return (
+      <LoadingContainer style={[containerStyle]}>
+        <ActivityIndicator />
+      </LoadingContainer>
+    );
+  }
+
   return (
     <Container style={[containerStyle]}>
       {image && <StlyedImage source={image} style={[imageStyle]} />}
+
+      { renderTitle && <TitleContainer style={[titleContainerStyle]} titleTextVertical={ titleVertical } >
+        <TitleText style={[titleStyle]} > {title} </TitleText>
+        { subTitle && subTitle.length > 0
+          ? <SubTitleText style={[subTitleStyle]}> {subTitle} </SubTitleText>
+          : null }
+      </TitleContainer>}
+
       {children && (
         <ContentsContainer style={[contentsStyle]}>
           {title && divider && <Divider style={[dividerStyle]} />}
