@@ -36,6 +36,7 @@ interface Props {
   contentsStyle?: ViewStyle;
   divider?: boolean;
   dividerStyle?: ViewStyle;
+  title?: string;
 }
 
 const Card: FC<Props> = (props) => {
@@ -47,13 +48,14 @@ const Card: FC<Props> = (props) => {
     contentsStyle,
     divider,
     dividerStyle,
+    title,
   } = props;
   return (
     <Container style={[containerStyle]}>
       {image && <StlyedImage source={image} style={[imageStyle]} />}
       {children && (
         <ContentsContainer style={[contentsStyle]}>
-          {divider && <Divider style={[dividerStyle]} />}
+          {title && divider && <Divider style={[dividerStyle]} />}
           {children}
         </ContentsContainer>
       )}
