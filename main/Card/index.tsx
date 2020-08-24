@@ -110,7 +110,7 @@ const Card: FC<Props> = (props) => {
   const shadowStyle = raised ? styles.raisedShadow : styles.shadow;
 
   return (
-    <Container style={[containerStyle, outlined ? styles.border : shadowStyle]}>
+    <Container style={[outlined ? styles.border : shadowStyle, containerStyle]}>
       {image && <StlyedImage source={image} style={[imageStyle]} />}
 
       { renderTitle && <TitleContainer style={[titleContainerStyle]} titleTextVertical={ titleVertical } >
