@@ -22,7 +22,7 @@ function Default(): React.ReactElement {
   return (
     <Container>
       <Card
-        containerStyle={{ marginBottom: 30 }}
+        containerStyle={{ marginBottom: 30, width: 200 }}
         image={{
           uri:
             'https://image.shutterstock.com/z/stock-vector-api-application-programming-interface-software-integration-vector-illustration-1079814893.jpg',
@@ -30,14 +30,16 @@ function Default(): React.ReactElement {
         imageStyle={{ width: 200 }}
         titleContainerStyle={{
           width: '100%',
-
           display: 'flex',
           flexDirection: 'column',
         }}
-        title={'This is title'}
+        title={'This is titlezzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz'}
         titleStyle={{ display: 'flex', flexDirection: 'column' }}
         subTitle={'This is subTitle'}
-        subTitleStyle={{ width: '100%', color: '#e4e4e4' }}>
+        subTitleStyle={{ width: '100%', color: '#e4e4e4' }}
+        titleNumberOfLine={1}
+        subTitleNumberOfLine={2}
+      >
         <Text>I have Image</Text>
       </Card>
 
