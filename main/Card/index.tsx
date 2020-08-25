@@ -20,6 +20,7 @@ const Container = styled.View`
 
 const ContentsContainer = styled.View`
   padding: 16px 24px;
+  width: 100%;
 `;
 
 const StlyedImage = styled.Image`
@@ -48,12 +49,14 @@ const TitleContainer = styled.View<TitleContainerProps>`
 
 const TitleText = styled.Text`
   font-size: 13px;
+  font-weight: bold;
   background-color: transparent;
   color: #000000;
 `;
 
 const SubTitleText = styled.Text`
   font-size: 10px;
+  font-weight: 400;
   background-color: transparent;
   color: #e4e4e4;
   height: 20px;
@@ -123,16 +126,16 @@ const Card: FC<Props> = (props) => {
   return (
     <Container style={[outlined ? styles.border : shadowStyle, containerStyle]}>
       {image && <StlyedImage source={image} style={[imageStyle]} />}
-      {renderTitle && (
-        <TitleContainer style={[titleContainerStyle]} hasSubTitle={!!subTitle}>
-          <TitleText style={[titleStyle]}> {title} </TitleText>
-          {subTitle && (
-            <SubTitleText style={[subTitleStyle]}> {subTitle} </SubTitleText>
-          )}
-        </TitleContainer>
-      )}
+
       {children && (
         <ContentsContainer style={[contentsStyle]}>
+          {renderTitle && <TitleContainer style={[titleContainerStyle]} hasSubTitle={!!subTitle} >
+            <TitleText style={[titleStyle]}> {title} </TitleText>
+            {subTitle && subTitle.length > 0 ? (
+              <SubTitleText style={[subTitleStyle]}> {subTitle} </SubTitleText>
+            ) : null}
+          </TitleContainer>
+          }
           {renderTitle && hasDivider && <Divider style={[dividerStyle]} />}
           {children}
         </ContentsContainer>

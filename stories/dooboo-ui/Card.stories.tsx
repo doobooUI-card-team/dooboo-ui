@@ -30,7 +30,7 @@ function Default(): React.ReactElement {
         imageStyle={{ width: 200 }}
         titleContainerStyle={{
           width: '100%',
-          height: '40px',
+
           display: 'flex',
           flexDirection: 'column',
         }}
@@ -41,7 +41,7 @@ function Default(): React.ReactElement {
         <Text>I have Image</Text>
       </Card>
 
-      <Card
+      {/* <Card
         containerStyle={{ marginBottom: 30 }}
         image={{
           uri:
@@ -121,8 +121,8 @@ function Default(): React.ReactElement {
           flexDirection: 'column',
         }}
         loading={true}>
-        <Text>{"I don't have Image"}</Text>
-      </Card>
+        <Text>I don't have Image</Text>
+      </Card> */}
     </Container>
   );
 }
