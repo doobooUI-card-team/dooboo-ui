@@ -1,3 +1,4 @@
+
 import {
   ActivityIndicator,
   ImageSourcePropType,
@@ -20,6 +21,7 @@ const Container = styled.View`
 
 const ContentsContainer = styled.View`
   padding: 16px 24px;
+  width: 100%;
 `;
 
 const StlyedImage = styled.Image`
@@ -34,9 +36,9 @@ const LoadingContainer = styled(Container)`
 `;
 
 const TitleContainer = styled.View<TitleContainerProps>`
-  justify-content: ${(props): string =>
-    props.hasSubTitle ? 'flex-start' : 'center'};
-  padding: 5px 10px;
+  justify-content: ${(props) => { return props.titleTextVertical ? 'flex-start' : 'center'; }};
+  padding: 3px 10px;
+  height: 46px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -48,15 +50,16 @@ const TitleContainer = styled.View<TitleContainerProps>`
 
 const TitleText = styled.Text`
   font-size: 13px;
+  font-weight: bold;
   background-color: transparent;
   color: #000000;
 `;
 
 const SubTitleText = styled.Text`
   font-size: 10px;
+  font-weight: 400;
   background-color: transparent;
   color: #e4e4e4;
-  height: 20px;
 `;
 
 const Divider = styled.View`
@@ -82,7 +85,9 @@ interface Props {
   hasDivider?: boolean;
   dividerStyle?: ViewStyle;
   outlined?: boolean;
-  raised?: boolean;
+  raised?:boolean;
+  titleNumberOfLine?: number;
+  subTitleNumberOfLine?: number;
 }
 
 interface TitleContainerProps extends ViewProps {
@@ -106,6 +111,8 @@ const Card: FC<Props> = (props) => {
     dividerStyle,
     outlined,
     raised,
+    titleNumberOfLine = 1,
+    subTitleNumberOfLine = 1,
   } = props;
 
   const renderTitle = title || subTitle;
@@ -123,16 +130,16 @@ const Card: FC<Props> = (props) => {
   return (
     <Container style={[outlined ? styles.border : shadowStyle, containerStyle]}>
       {image && <StlyedImage source={image} style={[imageStyle]} />}
-      {renderTitle && (
-        <TitleContainer style={[titleContainerStyle]} hasSubTitle={!!subTitle}>
-          <TitleText style={[titleStyle]}> {title} </TitleText>
-          {subTitle && (
-            <SubTitleText style={[subTitleStyle]}> {subTitle} </SubTitleText>
-          )}
-        </TitleContainer>
-      )}
+
       {children && (
         <ContentsContainer style={[contentsStyle]}>
+          {renderTitle && <TitleContainer style={[titleContainerStyle]} titleTextVertical={titleVertical} hasSubTitle={!!subTitle} >
+            <TitleText numberOfLines={titleNumberOfLine} ellipsizeMode="tail" style={[titleStyle]}> {title} </TitleText>
+            {subTitle && subTitle.length > 0 ? (
+              <SubTitleText numberOfLines={subTitleNumberOfLine} ellipsizeMode="tail" style={[subTitleStyle]}> {subTitle} </SubTitleText>
+            ) : null}
+          </TitleContainer>
+          }
           {renderTitle && hasDivider && <Divider style={[dividerStyle]} />}
           {children}
         </ContentsContainer>
